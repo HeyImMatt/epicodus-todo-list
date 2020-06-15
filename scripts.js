@@ -32,6 +32,14 @@ TodoList.prototype.deleteTodo = function(id) {
   return false;
 }
 
+TodoList.prototype.displayTodos = function() {
+  this.todoList.forEach((todo) => {
+    $("#todo-list").append(`
+    <p>${todo.description}</p>
+    `);
+  });
+}
+
 function TodoItem(description) {
   this.description = description;
   this.isCompleted = false;
@@ -43,5 +51,7 @@ $(document).ready(function(){
     event.preventDefault();
     let todoItem = new TodoItem($("input#description-input").val());
     todoList.addTodo(todoItem);
+    $("#todo-list").empty();
+    todoList.displayTodos();
   })
 })

@@ -23,6 +23,7 @@ TodoList.prototype.findTodo = function(id) {
 }
 
 TodoList.prototype.deleteTodo = function(id) {
+  console.log()
   for (let i = 0; i < this.todoList.length; i++) {
     if (this.todoList[i].id == id) {
       this.todoList.splice(i, 1);
@@ -36,11 +37,11 @@ TodoList.prototype.displayTodos = function() {
   this.todoList.forEach((todo) => {
     if (todo.isCompleted) {
       $("#todo-list").append(`
-    <p class="strikethrough"><input type="checkbox" checked id=${todo.id}> ${todo.description}</p>
+    <p id=${todo.id} class="strikethrough text-justify"><input type="checkbox" checked> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
     `);
     } else {
       $("#todo-list").append(`
-      <p><input type="checkbox" id=${todo.id}> ${todo.description}</p>
+      <p id=${todo.id} class="text-justify"><input type="checkbox"> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
       `);
     }
   });
@@ -61,8 +62,13 @@ $(document).ready(function(){
     $("#todo-list").empty();
     todoList.displayTodos();
 
+    $("button.btn-danger").click(function(){
+      todoList.deleteTodo(this.parentElement.id);
+      $(this.parentElement).remove();
+    });
+
     $("input:checkbox").change(function() {
-      let item = todoList.findTodo(this.id);
+      let item = todoList.findTodo(this.parentElement.id);
       if (!item.isCompleted) {
         item.isCompleted = true;
         $(this.parentElement).addClass("strikethrough")

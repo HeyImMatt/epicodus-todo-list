@@ -8,9 +8,18 @@ This is a todo list site that lets you add, remove, and check items off your tod
 
 ## BDD Specifications
 
-* Behavior
-  - Input: 
-  - Output: 
+* Program will allow users to create todos
+  - Input: Todo description
+  - Output: Completed? checkbox and todo description
+
+* Program will allow users to delete todos
+  - Input: Delete button click
+  - Output: Todo is removed from list
+
+* Program will allow users to mark todos as complete
+  - Input: Completed? checkbox click
+  - Output: Todo is marked as complete
+
 
 ## Technologies Used
 - JavaScript

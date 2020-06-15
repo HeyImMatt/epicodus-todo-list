@@ -37,11 +37,11 @@ TodoList.prototype.displayTodos = function() {
   this.todoList.forEach((todo) => {
     if (todo.isCompleted) {
       $("#todo-list").append(`
-    <p id=${todo.id} class="strikethrough text-justify"><input type="checkbox" checked> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
+    <p id=${todo.id} class="strikethrough"><input type="checkbox" checked> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
     `);
     } else {
       $("#todo-list").append(`
-      <p id=${todo.id} class="text-justify"><input type="checkbox"> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
+      <p id=${todo.id}><input type="checkbox"> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
       `);
     }
   });

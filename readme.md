@@ -1,4 +1,4 @@
-# Epicodus ToDo List
+# Epicodus Todo List
 
 This is a todo list site that lets you add, remove, and check items off your todo list.
 
@@ -10,15 +10,15 @@ This is a todo list site that lets you add, remove, and check items off your tod
 
 * Program will allow users to create todos
   - Input: Todo description
-  - Output: Completed? checkbox and todo description
+  - Output: Completed? checkboc, todo description, and remove button
 
 * Program will allow users to delete todos
-  - Input: Delete button click
+  - Input: Remove button click
   - Output: Todo is removed from list
 
 * Program will allow users to mark todos as complete
   - Input: Completed? checkbox click
-  - Output: Todo is marked as complete
+  - Output: Todo is marked as complete and given strikethrough treatment
 
 
 ## Technologies Used
@@ -36,7 +36,7 @@ Before you begin, ensure you have met the following requirements:
 
 ## Installing Epicodus ToDo List
 
-To install Epicodus ToDo List, follow these steps:
+To install Epicodus Todo List, follow these steps:
 
 Via Downloading from GitHub:
 1. Download this repository onto your machine by clicking the "Clone or Download" button
@@ -46,9 +46,9 @@ Via Downloading from GitHub:
 
 Via command line:
 ```
-$ git clone https://github.com/HeyImMatt/todo-list.git
+$ git clone https://github.com/HeyImMatt/epicodus-todo-list.git
 
-$ cd todo-list
+$ cd epicodus-todo-list
 
 $ code .
 

@@ -32,7 +32,16 @@ TodoList.prototype.deleteTodo = function(id) {
   return false;
 }
 
-function TodoItem(description, isCompleted) {
+function TodoItem(description) {
   this.description = description;
-  this.isCompleted = isCompleted;
+  this.isCompleted = false;
 }
+
+$(document).ready(function(){
+  let todoList = new TodoList();
+  $("form#create-todo").submit(function(event) {
+    event.preventDefault();
+    let todoItem = new TodoItem($("input#description-input").val());
+    todoList.addTodo(todoItem);
+  })
+})

@@ -16,7 +16,6 @@ TodoList.prototype.assignId = function() {
 TodoList.prototype.findTodo = function(id) {
   for (let i = 0; i < this.todoList.length; i++ ) {
     if (this.todoList[i].id == id) {
-      console.log(this.todoList[i])
       return this.todoList[i];
     }
   }
@@ -35,9 +34,15 @@ TodoList.prototype.deleteTodo = function(id) {
 
 TodoList.prototype.displayTodos = function() {
   this.todoList.forEach((todo) => {
-    $("#todo-list").append(`
-    <p><input type="checkbox" id=${todo.id}> ${todo.description}</p>
+    if (todo.isCompleted) {
+      $("#todo-list").append(`
+    <p class="strikethrough"><input type="checkbox" checked id=${todo.id}> ${todo.description}</p>
     `);
+    } else {
+      $("#todo-list").append(`
+      <p><input type="checkbox" id=${todo.id}> ${todo.description}</p>
+      `);
+    }
   });
 }
 
@@ -57,7 +62,6 @@ $(document).ready(function(){
 
     $("input:checkbox").change(function() {
       let item = todoList.findTodo(this.id);
-      console.dir(this)
       if (!item.isCompleted) {
         item.isCompleted = true;
         $(this.parentElement).addClass("strikethrough")

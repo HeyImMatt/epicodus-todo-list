@@ -54,11 +54,17 @@ $(document).ready(function(){
     todoList.addTodo(todoItem);
     $("#todo-list").empty();
     todoList.displayTodos();
+
     $("input:checkbox").change(function() {
       let item = todoList.findTodo(this.id);
+      console.dir(this)
       if (!item.isCompleted) {
         item.isCompleted = true;
-      } else item.isCompleted = false;
+        $(this.parentElement).addClass("strikethrough")
+      } else {
+        item.isCompleted = false;
+        $(this.parentElement).removeClass("strikethrough")
+      }
     });
   });
 });

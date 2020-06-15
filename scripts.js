@@ -56,6 +56,7 @@ $(document).ready(function(){
   $("form#create-todo").submit(function(event) {
     event.preventDefault();
     let todoItem = new TodoItem($("input#description-input").val());
+    $("input#description-input").val('');
     todoList.addTodo(todoItem);
     $("#todo-list").empty();
     todoList.displayTodos();

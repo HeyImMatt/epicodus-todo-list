@@ -2,6 +2,8 @@
 
 This is a todo list site that lets you add, remove, and check items off your todo list.
 
+You can view it here: https://heyimmatt.github.io/epicodus-todo-list
+
 **Created by: Christopher Yoon and Matt McFarland**
 
 **Created on: 6-15-2020**

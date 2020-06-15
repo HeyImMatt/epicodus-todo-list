@@ -15,7 +15,8 @@ TodoList.prototype.assignId = function() {
 
 TodoList.prototype.findTodo = function(id) {
   for (let i = 0; i < this.todoList.length; i++ ) {
-    if (this.todoList[i].id === id) {
+    if (this.todoList[i].id == id) {
+      console.log(this.todoList[i])
       return this.todoList[i];
     }
   }
@@ -24,7 +25,7 @@ TodoList.prototype.findTodo = function(id) {
 
 TodoList.prototype.deleteTodo = function(id) {
   for (let i = 0; i < this.todoList.length; i++) {
-    if (this.todoList[i].id === id) {
+    if (this.todoList[i].id == id) {
       this.todoList.splice(i, 1);
       return true;
     }
@@ -35,7 +36,7 @@ TodoList.prototype.deleteTodo = function(id) {
 TodoList.prototype.displayTodos = function() {
   this.todoList.forEach((todo) => {
     $("#todo-list").append(`
-    <p>${todo.description}</p>
+    <p><input type="checkbox" id=${todo.id}> ${todo.description}</p>
     `);
   });
 }
@@ -53,5 +54,12 @@ $(document).ready(function(){
     todoList.addTodo(todoItem);
     $("#todo-list").empty();
     todoList.displayTodos();
-  })
-})
+    $("input:checkbox").change(function() {
+      let item = todoList.findTodo(this.id);
+      if (!item.isCompleted) {
+        item.isCompleted = true;
+      } else item.isCompleted = false;
+    });
+  });
+});
+

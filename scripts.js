@@ -1,11 +1,16 @@
 function TodoList() {
-  this.todoList = [];
-  this.currentId = 0;
+  this.todoList = localStorage.getItem('todoList') ? JSON.parse(localStorage.getItem('todoList')) : [];
+  this.currentId = this.todoList[this.todoList.length - 1] ? this.todoList[this.todoList.length - 1].id : 0;
+}
+
+TodoList.prototype.setLocalStorageTodoList = function() {
+  localStorage.setItem('todoList', JSON.stringify(this.todoList));
 }
 
 TodoList.prototype.addTodo = function(todo) {
   todo.id = this.assignId();
-  this.todoList.push(todo)
+  this.todoList.push(todo);
+  this.setLocalStorageTodoList();
 }
 
 TodoList.prototype.assignId = function() {
@@ -23,25 +28,23 @@ TodoList.prototype.findTodo = function(id) {
 }
 
 TodoList.prototype.deleteTodo = function(id) {
-  console.log()
   for (let i = 0; i < this.todoList.length; i++) {
     if (this.todoList[i].id == id) {
       this.todoList.splice(i, 1);
-      return true;
     }
   }
-  return false;
+  this.setLocalStorageTodoList();
 }
 
 TodoList.prototype.displayTodos = function() {
   this.todoList.forEach((todo) => {
     if (todo.isCompleted) {
       $("#todo-list").append(`
-    <p id=${todo.id} class="strikethrough"><input type="checkbox" checked> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
+    <p data-id=${todo.id} class="strikethrough"><input type="checkbox" checked> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
     `);
     } else {
       $("#todo-list").append(`
-      <p id=${todo.id}><input type="checkbox"> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
+      <p data-id=${todo.id}><input type="checkbox"> ${todo.description} <button class="btn btn-danger btn-sm">Remove</button></p>
       `);
     }
   });
@@ -53,7 +56,16 @@ function TodoItem(description) {
 }
 
 $(document).ready(function(){
-  let todoList = new TodoList();
+  const todoList = new TodoList();
+  todoList.displayTodos();
+
+  $("#todo-list").on('click', function(event){
+    if (event.target.tagName === 'BUTTON') {
+      todoList.deleteTodo(event.target.parentElement.dataset.id);
+      $(event.target.parentElement).remove();
+    }
+  });
+
   $("form#create-todo").submit(function(event) {
     event.preventDefault();
     let todoItem = new TodoItem($("input#description-input").val());
@@ -62,13 +74,8 @@ $(document).ready(function(){
     $("#todo-list").empty();
     todoList.displayTodos();
 
-    $("button.btn-danger").click(function(){
-      todoList.deleteTodo(this.parentElement.id);
-      $(this.parentElement).remove();
-    });
-
     $("input:checkbox").change(function() {
-      let item = todoList.findTodo(this.parentElement.id);
+      let item = todoList.findTodo(this.parentElement.dataset.id);
       if (!item.isCompleted) {
         item.isCompleted = true;
         $(this.parentElement).addClass("strikethrough")
